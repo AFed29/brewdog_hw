@@ -50,7 +50,7 @@ const handleBeerChange = function (event) {
     return this.value === beer.name;
   });
 
-  const beer = new Beer( beerData.name, beerData["image_url"]);
+  const beer = new Beer( beerData.name, beerData.image_url, beerData.ingredients);
 
   for (const variable in beer) {
     const li = document.createElement('li');
@@ -58,10 +58,30 @@ const handleBeerChange = function (event) {
       const img = document.createElement('img');
       img.src = beer[variable];
       li.appendChild(img);
+      beerInfoList.appendChild(li);
+    } else if (variable !== "Beer Name" ) {
+      const h4 = document.createElement('h4');
+      h4.textContent = `${ variable }`
+      beerInfoDiv.appendChild(h4);
+      const ingredientUL = document.createElement('ul')
+      beerInfoDiv.appendChild(ingredientUL);
+      for (const ingredient in beer["Ingredients"]) {
+        if (ingredient === "yeast") {
+          const ingredientLI = document.createElement('li')
+          ingredientLI.textContent = `${ ingredient }: ${beer["Ingredients"][ingredient]}`
+          ingredientUL.appendChild(ingredientLI);
+        } else {
+          for (const item of beer["Ingredients"][ingredient]) {
+            const ingredientLI = document.createElement('li')
+            ingredientLI.textContent = `${ ingredient }: ${item.name}`
+            ingredientUL.appendChild(ingredientLI);
+          }
+        }
+      }
     } else {
       li.textContent = `${ variable }: ${ beer[variable] }`
+      beerInfoList.appendChild(li);
     }
-    beerInfoList.appendChild(li);
   }
 
 }
