@@ -8,5 +8,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, function () {
-  console.log(`Example app running on ${ this.address().port }`);
+  console.log(`Alex's BrewDog app running on ${ this.address().port }`);
 });
